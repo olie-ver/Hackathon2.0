@@ -2,9 +2,11 @@
 
 #include "Core.hpp"
 
-namespace internal::Renderer {
-    class Renderer {
-        public:
-            void render(Core::TestRun& run);
-    };
+namespace internal {
+    namespace Renderer {
+        class Renderer {
+            public:
+                void render(Core::TestRun& run);
+        };
+    }
 }

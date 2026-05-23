@@ -22,14 +22,16 @@
 #define D_TEST(test_name) \
     TEST(Default, test_name)
 
-namespace internal::Runner {
-    std::vector<Core::Test>& getRegistry();
+namespace internal {
+    namespace Runner {
+        std::vector<Core::Test>& getRegistry();
 
-    std::unordered_set<Core::Test, Core::TestHash>& getAllTests();
+        std::unordered_set<Core::Test, Core::TestHash>& getAllTests();
 
-    bool registerTest(const Core::Test& test);
+        bool registerTest(const Core::Test& test);
 
-    void runAllRegisteredTests(Core::TestRun& run);
+        void runAllRegisteredTests(Core::TestRun& run);
 
-    Core::Result runTest(const Core::Test& test);
+        Core::Result runTest(Core::Test& test);
+    }
 }
