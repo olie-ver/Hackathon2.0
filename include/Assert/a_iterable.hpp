@@ -10,7 +10,7 @@
 #include <type_traits>
 #include <iterator>
 
-#define EXPECT_EQ_ORDERED(first, second) internal::Expect::expectOrderedRangeEq((first), (second), __FILE__, __LINE__)
+#define ASSERT_EQ_ORDERED(first, second) internal::Expect::expectOrderedRangeEq((first), (second), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {
@@ -46,7 +46,7 @@ namespace internal {
         {
             static_assert(
                 Helpers::are_iterables_comparable<A, B>::value,
-                "EXPECT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
+                "ASSERT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
             );
 
             auto a_itr = std::begin(a);
@@ -87,7 +87,7 @@ namespace internal {
         inline void expectUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
             static_assert(
                 Helpers::are_iterables_comparable<A, B>::value,
-                "EXPECT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
+                "ASSERT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
             );
         }
     }

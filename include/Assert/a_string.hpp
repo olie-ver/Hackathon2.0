@@ -10,8 +10,8 @@
 #include <iostream>
 #include <algorithm>
 
-#define EXPECT_STR_EQ(a, b) internal::Expect::stringEqual((a), (b), __FILE__, __LINE__)
-#define EXPECT_STR_NE(a, b) internal::Expect::stringNotEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_STR_EQ(a, b) internal::Expect::stringEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_STR_NE(a, b) internal::Expect::stringNotEqual((a), (b), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {

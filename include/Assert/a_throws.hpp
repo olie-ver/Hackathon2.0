@@ -11,17 +11,17 @@
 
 //Needs to handle anything throwing, not just std::exceptions
 
-#define EXPECT_THROWS_1_ARGS(func) internal::Expect::throws([&]() {(func());}, #func, __FILE__, __LINE__)
-#define EXPECT_THROWS_2_ARGS(func, ex) internal::Expect::throws<ex>([&]() {(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_THROWS_1_ARGS(func) internal::Expect::throws([&]() {(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_THROWS_2_ARGS(func, ex) internal::Expect::throws<ex>([&]() {(func());}, #func, __FILE__, __LINE__)
 
 #define GET_3RD_ARG(arg1, arg2, arg3, ...) arg3
 
-#define EXPECT_THROWS_MACRO_CHOOSER(...) \
-    GET_3RD_ARG(__VA_ARGS__, EXPECT_THROWS_2_ARGS, EXPECT_THROWS_1_ARGS)
+#define ASSERT_THROWS_MACRO_CHOOSER(...) \
+    GET_3RD_ARG(__VA_ARGS__, ASSERT_THROWS_2_ARGS, ASSERT_THROWS_1_ARGS)
 
 //The actual tests
-#define EXPECT_THROWS(...) EXPECT_THROWS_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
-#define EXPECT_DOES_NOT_THROW(func) internal::Expect::doesNotThrow([&](){(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_THROWS(...) ASSERT_THROWS_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
+#define ASSERT_DOES_NOT_THROW(func) internal::Expect::doesNotThrow([&](){(func());}, #func, __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {

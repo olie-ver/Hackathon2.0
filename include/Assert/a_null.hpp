@@ -8,8 +8,8 @@
 #include "../Core.hpp"
 #include <type_traits>
 
-#define EXPECT_NULL(val) internal::Expect::isNull((val), __FILE__, __LINE__)
-#define EXPECT_NOT_NULL(val) internal::Expect::isNotNull((val), __FILE__, __LINE__)
+#define ASSERT_NULL(val) internal::Expect::isNull((val), __FILE__, __LINE__)
+#define ASSERT_NOT_NULL(val) internal::Expect::isNotNull((val), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {

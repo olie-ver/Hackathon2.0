@@ -7,12 +7,12 @@
 #include "../Helpers.hpp"
 #include "../Core.hpp"
 
-#define EXPECT_EQ(a, b) internal::Expect::expectEqual((a), (b), __FILE__, __LINE__)
-#define EXPECT_NE(a, b) internal::Expect::expectNotEqual((a), (b), __FILE__, __LINE__)
-#define EXPECT_LT(a, b) internal::Expect::expectLessThan((a), (b), __FILE__, __LINE__)
-#define EXPECT_LE(a, b) internal::Expect::expectLessThanEqual((a), (b), __FILE__, __LINE__)
-#define EXPECT_GT(a, b) internal::Expect::expectGreaterThan((a), (b), __FILE__, __LINE__)
-#define EXPECT_GE(a, b) internal::Expect::expectGreaterThanEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_EQ(a, b) internal::Expect::expectEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_NE(a, b) internal::Expect::expectNotEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_LT(a, b) internal::Expect::expectLessThan((a), (b), __FILE__, __LINE__)
+#define ASSERT_LE(a, b) internal::Expect::expectLessThanEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_GT(a, b) internal::Expect::expectGreaterThan((a), (b), __FILE__, __LINE__)
+#define ASSERT_GE(a, b) internal::Expect::expectGreaterThanEqual((a), (b), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {

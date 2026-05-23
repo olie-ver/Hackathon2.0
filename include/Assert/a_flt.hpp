@@ -10,28 +10,28 @@
 #include <algorithm>
 #include <string>
 
-#define EXPECT_NEAR_3_ARGS(first, second, abs_tol) \
+#define ASSERT_NEAR_3_ARGS(first, second, abs_tol) \
     internal::Expect::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
 
-#define EXPECT_NEAR_4_ARGS(first, second, abs_tol, rel_tol) \
+#define ASSERT_NEAR_4_ARGS(first, second, abs_tol, rel_tol) \
     internal::Expect::nearlyEqual((first), (second), (abs_tol), (rel_tol), __FILE__, __LINE__)
 
 #define GET_5TH_ARG(arg1, arg2, arg3, arg4, arg5, ...) arg5
 
-#define EXPECT_NEAR_MACRO_CHOOSER(...) \
-    GET_5TH_ARG(__VA_ARGS__, EXPECT_NEAR_4_ARGS, EXPECT_NEAR_3_ARGS)
+#define ASSERT_NEAR_MACRO_CHOOSER(...) \
+    GET_5TH_ARG(__VA_ARGS__, ASSERT_NEAR_4_ARGS, ASSERT_NEAR_3_ARGS)
 
 //The actual tests
-#define EXPECT_NEAR(...) EXPECT_NEAR_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
+#define ASSERT_NEAR(...) ASSERT_NEAR_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
 
-#define EXPECT_REL_NEAR(first, second, rel_tol) \
+#define ASSERT_REL_NEAR(first, second, rel_tol) \
     internal::Expect::relativelyEqual((first), (second), (rel_tol), __FILE__, __LINE__)
 
-#define EXPECT_ABS_NEAR(first, second, abs_tol) \
+#define ASSERT_ABS_NEAR(first, second, abs_tol) \
     internal::Expect::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
 
-#define EXPECT_NAN(number) internal::Expect::isNaN((number), __FILE__, __LINE__)
-#define EXPECT_NOT_NAN(number) internal::Expect::isNotNan((number), __FILE__, __LINE__)
+#define ASSERT_NAN(number) internal::Expect::isNaN((number), __FILE__, __LINE__)
+#define ASSERT_NOT_NAN(number) internal::Expect::isNotNan((number), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {
