@@ -24,6 +24,7 @@
 
 namespace internal {
     namespace Runner {
+        extern Core::Result* CURRENT_TEST;
         std::vector<Core::Test>& getRegistry();
 
         std::unordered_set<Core::Test, Core::TestHash>& getAllTests();
