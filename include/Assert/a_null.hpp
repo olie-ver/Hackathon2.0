@@ -1,18 +1,18 @@
 #pragma once
 
-#ifndef E_NULL_H
-#define E_NULL_H
+#ifndef A_NULL_H
+#define A_NULL_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
 #include "../Core.hpp"
 #include <type_traits>
 
-#define ASSERT_NULL(val) internal::Expect::isNull((val), __FILE__, __LINE__)
-#define ASSERT_NOT_NULL(val) internal::Expect::isNotNull((val), __FILE__, __LINE__)
+#define ASSERT_NULL(val) internal::Assert::isNull((val), __FILE__, __LINE__)
+#define ASSERT_NOT_NULL(val) internal::Assert::isNotNull((val), __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         /// @brief Checks if something is null
         /// @tparam T a type that can be compared to nullptr
         /// @param val the value

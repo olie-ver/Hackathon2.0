@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef E_STR_H
-#define E_STR_H
+#ifndef A_STR_H
+#define A_STR_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
@@ -10,11 +10,11 @@
 #include <iostream>
 #include <algorithm>
 
-#define ASSERT_STR_EQ(a, b) internal::Expect::stringEqual((a), (b), __FILE__, __LINE__)
-#define ASSERT_STR_NE(a, b) internal::Expect::stringNotEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_STR_EQ(a, b) internal::Assert::stringEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_STR_NE(a, b) internal::Assert::stringNotEqual((a), (b), __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         /// @brief Checks if two strings are equal
         /// @param first the first string
         /// @param second the second string

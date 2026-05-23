@@ -1,16 +1,16 @@
 #pragma once
 
-#ifndef E_BOOL_H
-#define E_BOOL_H
+#ifndef A_BOOL_H
+#define A_BOOL_H
 
 #include "../Runner.hpp"
 #include "../Core.hpp"
 
-#define ASSERT_TRUE(cond) internal::Expect::expectTrue((cond), #cond, __FILE__, __LINE__)
-#define ASSERT_FALSE(cond) internal::Expect::expectFalse((cond), #cond, __FILE__, __LINE__)
+#define ASSERT_TRUE(cond) internal::Assert::expectTrue((cond), #cond, __FILE__, __LINE__)
+#define ASSERT_FALSE(cond) internal::Assert::expectFalse((cond), #cond, __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         /// @brief Test for expecting a condition to be true
         /// @param condition a condition
         /// @param expr The expression being evaluated in char* form

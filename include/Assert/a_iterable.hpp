@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef E_ITER_H
-#define E_ITER_H
+#ifndef A_ITER_H
+#define A_ITER_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
@@ -11,13 +11,13 @@
 #include <type_traits>
 #include <iterator>
 
-#define ASSERT_EQ_ORDERED(first, second) internal::Expect::expectOrderedRangeEq((first), (second), __FILE__, __LINE__)
+#define ASSERT_EQ_ORDERED(first, second) internal::Assert::assertOrderedRangeEq((first), (second), __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
 
         template <typename T, size_t N>
-        inline void expectOrderedRangeEq(T(& first)[N], T(& second)[N], const char* file, int line) {
+        inline void assertOrderedRangeEq(T(& first)[N], T(& second)[N], const char* file, int line) {
             std::stringstream stream;
             bool mismatch = false;
             for (size_t i = 0; i < N; i++) {
@@ -43,12 +43,12 @@ namespace internal {
         }
 
         template <typename A, typename B>
-        inline void expectOrderedRangeEq(const A& a, const B& b, const char* file, int line)
+        inline void assertOrderedRangeEq(const A& a, const B& b, const char* file, int line)
         {
-            static_assert(
-                Helpers::are_iterables_comparable<A, B>::value,
-                "ASSERT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
-            );
+            // static_assert(
+            //     Concepts::IterableComparable<A, B>::value,
+            //     "ASSERT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
+            // );
 
             auto a_itr = std::begin(a);
             auto b_itr = std::begin(b);
@@ -84,13 +84,13 @@ namespace internal {
             }
         }
 
-        template <typename A, typename B>
-        inline void expectUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
-            static_assert(
-                Helpers::are_iterables_comparable<A, B>::value,
-                "ASSERT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
-            );
-        }
+        // template <typename A, typename B>
+        // inline void assertUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
+        //     // static_assert(
+        //     //     CConcepts::IterableComparable<A, B>::value,
+        //     //     "ASSERT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
+        //     // );
+        // }
     }
 }
 

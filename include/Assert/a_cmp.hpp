@@ -1,21 +1,21 @@
 #pragma once
 
-#ifndef E_CMP_H
-#define E_CMP_H
+#ifndef A_CMP_H
+#define A_CMP_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
 #include "../Core.hpp"
 
-#define ASSERT_EQ(a, b) internal::Expect::expectEqual((a), (b), __FILE__, __LINE__)
-#define ASSERT_NE(a, b) internal::Expect::expectNotEqual((a), (b), __FILE__, __LINE__)
-#define ASSERT_LT(a, b) internal::Expect::expectLessThan((a), (b), __FILE__, __LINE__)
-#define ASSERT_LE(a, b) internal::Expect::expectLessThanEqual((a), (b), __FILE__, __LINE__)
-#define ASSERT_GT(a, b) internal::Expect::expectGreaterThan((a), (b), __FILE__, __LINE__)
-#define ASSERT_GE(a, b) internal::Expect::expectGreaterThanEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_EQ(a, b) internal::Assert::expectEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_NE(a, b) internal::Assert::expectNotEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_LT(a, b) internal::Assert::expectLessThan((a), (b), __FILE__, __LINE__)
+#define ASSERT_LE(a, b) internal::Assert::expectLessThanEqual((a), (b), __FILE__, __LINE__)
+#define ASSERT_GT(a, b) internal::Assert::expectGreaterThan((a), (b), __FILE__, __LINE__)
+#define ASSERT_GE(a, b) internal::Assert::expectGreaterThanEqual((a), (b), __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         /// @brief Test for expecting a two values to be equal
         /// @tparam T A generic type
         /// @tparam U A generic type 

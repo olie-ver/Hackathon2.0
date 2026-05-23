@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef E_FLT_H
-#define E_FLT_H
+#ifndef A_FLT_H
+#define A_FLT_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
@@ -11,10 +11,10 @@
 #include <string>
 
 #define ASSERT_NEAR_3_ARGS(first, second, abs_tol) \
-    internal::Expect::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
+    internal::Assert::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
 
 #define ASSERT_NEAR_4_ARGS(first, second, abs_tol, rel_tol) \
-    internal::Expect::nearlyEqual((first), (second), (abs_tol), (rel_tol), __FILE__, __LINE__)
+    internal::Assert::nearlyEqual((first), (second), (abs_tol), (rel_tol), __FILE__, __LINE__)
 
 #define GET_5TH_ARG(arg1, arg2, arg3, arg4, arg5, ...) arg5
 
@@ -25,16 +25,16 @@
 #define ASSERT_NEAR(...) ASSERT_NEAR_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
 
 #define ASSERT_REL_NEAR(first, second, rel_tol) \
-    internal::Expect::relativelyEqual((first), (second), (rel_tol), __FILE__, __LINE__)
+    internal::Assert::relativelyEqual((first), (second), (rel_tol), __FILE__, __LINE__)
 
 #define ASSERT_ABS_NEAR(first, second, abs_tol) \
-    internal::Expect::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
+    internal::Assert::absolutelyEqual((first), (second), (abs_tol), __FILE__, __LINE__)
 
-#define ASSERT_NAN(number) internal::Expect::isNaN((number), __FILE__, __LINE__)
-#define ASSERT_NOT_NAN(number) internal::Expect::isNotNan((number), __FILE__, __LINE__)
+#define ASSERT_NAN(number) internal::Assert::isNaN((number), __FILE__, __LINE__)
+#define ASSERT_NOT_NAN(number) internal::Assert::isNotNan((number), __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         /// @brief Checks if two floating point values are "close enough" to each other
         /// @tparam A a generic floating point type
         /// @tparam B a generic floating point type

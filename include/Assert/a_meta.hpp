@@ -40,6 +40,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -63,6 +65,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             } else { //the test failed => this one passed => erase its error message
                 Runner::CURRENT_TEST->failures.pop_back();
             }
@@ -88,6 +92,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             } else { //The test failed
                 Core::Failure last = Runner::CURRENT_TEST->failures.back();
 
@@ -102,6 +108,8 @@ namespace internal {
                         file,
                         line
                     });
+
+                    throw Core::AssertionFailure();
                 }
             }
         }

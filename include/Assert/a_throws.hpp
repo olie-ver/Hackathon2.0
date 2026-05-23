@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef E_THROWS_H
-#define E_THROWS_H
+#ifndef A_THROWS_H
+#define A_THROWS_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
@@ -11,8 +11,8 @@
 
 //Needs to handle anything throwing, not just std::exceptions
 
-#define ASSERT_THROWS_1_ARGS(func) internal::Expect::throws([&]() {(func());}, #func, __FILE__, __LINE__)
-#define ASSERT_THROWS_2_ARGS(func, ex) internal::Expect::throws<ex>([&]() {(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_THROWS_1_ARGS(func) internal::Assert::throws([&]() {(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_THROWS_2_ARGS(func, ex) internal::Assert::throws<ex>([&]() {(func());}, #func, __FILE__, __LINE__)
 
 #define GET_3RD_ARG(arg1, arg2, arg3, ...) arg3
 
@@ -21,10 +21,10 @@
 
 //The actual tests
 #define ASSERT_THROWS(...) ASSERT_THROWS_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
-#define ASSERT_DOES_NOT_THROW(func) internal::Expect::doesNotThrow([&](){(func());}, #func, __FILE__, __LINE__)
+#define ASSERT_DOES_NOT_THROW(func) internal::Assert::doesNotThrow([&](){(func());}, #func, __FILE__, __LINE__)
 
 namespace internal {
-    namespace Expect {
+    namespace Assert {
         template <typename Expected = void, typename Func>
         inline void throws(Func&& func, const char* funcName, const char* file, int line) {
             if constexpr (std::is_same_v<Expected, void>) {

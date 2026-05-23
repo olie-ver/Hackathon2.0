@@ -1,7 +1,9 @@
 #include "../include/Runner.hpp"
+#include "../include/Tests.hpp"
 
 #include <iostream>
 
 D_TEST(hi) {
-    std::cout << "OKAY IT WORKS" << std::endl;
+    ASSERT_TRUE(true);
+    EXPECT_FALSE(true);
 }

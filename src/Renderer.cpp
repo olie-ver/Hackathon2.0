@@ -4,9 +4,12 @@
 namespace internal {
     namespace Renderer {
         void Renderer::render(Core::TestRun& testRun) {
-        auto& tests = testRun.results;
+            std::cout << "Running " << testRun.total << " tests...\n" << std::endl;
+
+            auto& tests = testRun.results;
 
             size_t size = tests.size();
+            // std::cout << "There are " << size << "tests " << std::endl;
             for (size_t i = 0; i < size; i++) {
                 const Core::Result& result = tests[i];
 
@@ -31,6 +34,12 @@ namespace internal {
                         break;
                 }
             }
+
+            std::cout << std::string(50, '-') << std::endl;
+            std::cout << "Total: " << testRun.total;
+            std::cout << " | Passed: " << testRun.passed;
+            std::cout << " | Failed: " << testRun.failed;
+            std::cout << "Time: " << testRun.totalMs << " ms" << std::endl;
         }
     }
 }

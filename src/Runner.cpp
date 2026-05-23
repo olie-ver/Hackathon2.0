@@ -43,8 +43,10 @@ namespace internal {
 
                 std::vector<Core::Test>& REGISTRY = getRegistry();
                 for (size_t i = 0; i < REGISTRY.size(); i++) {
-                    runTest(REGISTRY[i]);
+                    run.results.push_back(runTest(REGISTRY[i]));
                 }
+
+                run.total = REGISTRY.size();
 
                 clock::time_point end_time = clock::now();
 
