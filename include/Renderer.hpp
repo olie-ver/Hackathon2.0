@@ -4,6 +4,6 @@
 
 namespace internal::Renderer {
     class Renderer {
-        void render(const Core::TestRun& run);
+        void render(Core::TestRun& run);
     };
 }
