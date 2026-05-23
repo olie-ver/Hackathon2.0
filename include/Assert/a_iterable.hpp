@@ -13,6 +13,8 @@
 #define ASSERT_ORDERED_EQ(a, b) internal::Assert::assertOrderedRangeEq((a), (b), __FILE__, __LINE__)
 #define ASSERT_UNORDERED_EQ(a, b) internal::Assert::assertUnorderedRangeEq((a), (b), __FILE__, __LINE__)
 #define ASSERT_UNORDERED_NE(a, b) internal::Assert::assertUnorderedRangeNe((a), (b), __FILE__, __LINE__)
+#define ASSERT_EMPTY(a) internal::Assert::assertEmpty((a), __FILE__, __LINE__)
+#define ASSERT_EMPTY(a, size) internal::Assert::assertEmpty((a), (size), __FILE__, __LINE__)
 
 namespace internal {
     namespace Assert {
@@ -193,6 +195,35 @@ namespace internal {
                 throw Core::AssertionFailure();
             }
         }
+
+        template <typename T>
+        inline void assertEmpty(const T& container, const char* file, const int line) {
+            if (container.size() != 0) {
+                Runner::CURRENT_TEST->failures.push_back({
+                    std::string("Expected container size to be 0, but wasn't. \n" 
+                        "     size = " + Helpers::toString(container.size())),
+                    file,
+                    line
+                });
+
+                throw Core::AssertionFailure();
+            }
+        }
+
+        template <typename T>
+        inline void assertSize(const T& container, const size_t size, const char* file, const int line) {
+            if (container.size() != size) {
+                Runner::CURRENT_TEST->failures.push_back({
+                    std::string("Expected container size to be" + Helpers::toString(size) + ", but wasn't. \n" 
+                        "     size = " + Helpers::toString(container.size())),
+                    file,
+                    line
+                });
+
+                throw Core::AssertionFailure();
+            }
+        }
+
     }
 }
 
