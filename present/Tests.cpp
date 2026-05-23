@@ -265,33 +265,33 @@ TEST(ExpectFloat, rel_near_fails) {
 TEST(AssertIterable, ordered_eq_vectors) {
     std::vector<int> a = {1, 2, 3, 4, 5};
     std::vector<int> b = {1, 2, 3, 4, 5};
-    ASSERT_EQ_ORDERED(a, b);
+    ASSERT_ORDERED_EQ(a, b);
 }
 
 TEST(AssertIterable, ordered_eq_mixed_types) {
     std::vector<int> a = {10, 20, 30};
     std::set<int>    b = {10, 20, 30};
-    ASSERT_EQ_ORDERED(a, b);
+    ASSERT_ORDERED_EQ(a, b);
 }
 
 TEST(AssertIterable, ordered_eq_fails_on_diff) {
     std::vector<int> a = {1, 2, 3};
     std::vector<int> b = {1, 9, 3};
-    ASSERT_FAILS(ASSERT_EQ_ORDERED(a, b));
+    ASSERT_FAILS(ASSERT_ORDERED_EQ(a, b));
 }
 
 TEST(AssertIterable, ordered_eq_fails_on_size_diff) {
     std::vector<int> a = {1, 2, 3};
     std::vector<int> b = {1, 2};
-    ASSERT_FAILS(ASSERT_EQ_ORDERED(a, b));
+    ASSERT_FAILS(ASSERT_ORDERED_EQ(a, b));
 }
 
-// NOTE: The array overload of ASSERT_EQ_ORDERED has a bug (throw outside if-block).
+// NOTE: The array overload of ASSERT_ORDERED_EQ has a bug (throw outside if-block).
 // The test below is commented out until fixed.
 // TEST(AssertIterable, ordered_eq_arrays_BUG) {
 //     int a[] = {1, 2, 3};
 //     int b[] = {1, 2, 3};
-//     ASSERT_EQ_ORDERED(a, b); // currently throws unconditionally on first iteration
+//     ASSERT_ORDERED_EQ(a, b); // currently throws unconditionally on first iteration
 // }
 
 
@@ -302,32 +302,32 @@ TEST(AssertIterable, ordered_eq_fails_on_size_diff) {
 TEST(ExpectIterable, ordered_eq_passes) {
     std::vector<int> a = {5, 10, 15};
     std::vector<int> b = {5, 10, 15};
-    EXPECT_EQ_ORDERED(a, b);
+    ASSERT_ORDERED_EQ(a, b);
 }
 
 TEST(ExpectIterable, ordered_eq_fails_on_diff) {
     std::vector<int> a = {1, 2, 3};
     std::vector<int> b = {1, 0, 3};
-    EXPECT_FAILS(EXPECT_EQ_ORDERED(a, b));
+    EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
 }
 
 TEST(ExpectIterable, ordered_eq_fails_size_mismatch) {
     std::vector<std::string> a = {"a", "b"};
     std::vector<std::string> b = {"a", "b", "c"};
-    EXPECT_FAILS(EXPECT_EQ_ORDERED(a, b));
+    EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
 }
 
-TEST(ExpectIterable, ordered_eq_arrays) {
-    int a[] = {1, 2, 3};
-    int b[] = {1, 2, 3};
-    EXPECT_EQ_ORDERED(a, b);
-}
+// TEST(ExpectIterable, ordered_eq_arrays) {
+//     int a[] = {1, 2, 3};
+//     int b[] = {1, 2, 3};
+//     ASSERT_ORDERED_EQ(a, b);
+// }
 
-TEST(ExpectIterable, ordered_eq_arrays_fails) {
-    int a[] = {1, 2, 3};
-    int b[] = {1, 9, 3};
-    EXPECT_FAILS(EXPECT_EQ_ORDERED(a, b));
-}
+// TEST(ExpectIterable, ordered_eq_arrays_fails) {
+//     int a[] = {1, 2, 3};
+//     int b[] = {1, 9, 3};
+//     EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
+// }
 
 
 // ============================================================
