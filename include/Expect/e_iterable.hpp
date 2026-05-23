@@ -14,7 +14,7 @@
 #define EXPECT_UNORDERED_EQ(a, b) internal::Expect::expectUnorderedRangeEq((a), (b), __FILE__, __LINE__)
 #define EXPECT_UNORDERED_NE(a, b) internal::Expect::expectUnorderedRangeNe((a), (b), __FILE__, __LINE__)
 #define EXPECT_EMPTY(a) internal::Expect::expectEmpty((a), __FILE__, __LINE__)
-#define EXPECT_EMPTY(a, size) internal::Expect::expectEmpty((a), (size), __FILE__, __LINE__)
+#define EXPECT_SIZE(a, size) internal::Expect::expectEmpty((a), (size), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {
@@ -142,20 +142,20 @@ namespace internal {
             static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
                 "Both containers must be iterable and their content must be comparable");
 
-            size_t size_a = std::ranges::size(first);
-            size_t size_b = std::ranges::size(second);
+            size_t size_a = std::size(first);
+            size_t size_b = std::size(second);
 
             if (size_a == size_b) {
                 std::vector<bool> used(size_a);
 
-                auto a_itr = std::ranges::begin(first);
+                auto a_itr = std::begin(first);
 
-                auto a_end = std::ranges::end(first);
-                auto b_end = std::ranges::end(second);
+                auto a_end = std::end(first);
+                auto b_end = std::end(second);
 
                 for (; a_itr != a_end; ++a_itr) {
                     size_t idx = 0;
-                    auto b_itr = std::ranges::begin(second);
+                    auto b_itr = std::begin(second);
                     bool found = false;
                     for (; b_itr != b_end; ++b_itr, ++idx) {
                         if (*b_itr == *a_itr) {
@@ -169,14 +169,14 @@ namespace internal {
 
                     //if there's an element in a that's not in b, then they aren't equal => return
                     if (!found) {
-                        return std::nullopt;
+                        ;
                     }
                 }
 
                 //unnecessary, but will keep just in case I'm wrong
                 // for (size_t i = 0; i < used.size(); i++) {
                 //     if (!used[i]) {
-                //         return std::nullopt;
+                //         ;
                 //     }
                 // }
 

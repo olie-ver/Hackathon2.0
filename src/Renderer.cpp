@@ -39,7 +39,7 @@ namespace internal {
             std::cout << "Total: " << testRun.total;
             std::cout << " | Passed: " << testRun.passed;
             std::cout << " | Failed: " << testRun.failed;
-            std::cout << "Time: " << testRun.totalMs << " ms" << std::endl;
+            std::cout << "\nTime: " << testRun.totalMs << " ms" << std::endl;
         }
     }
 }

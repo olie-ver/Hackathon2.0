@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef A_PRED_H
-#define A_PRED_H
+#ifndef E_PRED_H
+#define E_PRED_H
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"

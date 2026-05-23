@@ -14,7 +14,7 @@
 #define ASSERT_UNORDERED_EQ(a, b) internal::Assert::assertUnorderedRangeEq((a), (b), __FILE__, __LINE__)
 #define ASSERT_UNORDERED_NE(a, b) internal::Assert::assertUnorderedRangeNe((a), (b), __FILE__, __LINE__)
 #define ASSERT_EMPTY(a) internal::Assert::assertEmpty((a), __FILE__, __LINE__)
-#define ASSERT_EMPTY(a, size) internal::Assert::assertEmpty((a), (size), __FILE__, __LINE__)
+#define ASSERT_SIZE(a, size) internal::Assert::assertEmpty((a), (size), __FILE__, __LINE__)
 
 namespace internal {
     namespace Assert {
@@ -149,20 +149,20 @@ namespace internal {
             static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
                 "Both containers must be iterable and their content must be comparable");
 
-            size_t size_a = std::ranges::size(first);
-            size_t size_b = std::ranges::size(second);
+            size_t size_a = std::size(first);
+            size_t size_b = std::size(second);
 
             if (size_a == size_b) {
                 std::vector<bool> used(size_a);
 
-                auto a_itr = std::ranges::begin(first);
+                auto a_itr = std::begin(first);
 
-                auto a_end = std::ranges::end(first);
-                auto b_end = std::ranges::end(second);
+                auto a_end = std::end(first);
+                auto b_end = std::end(second);
 
                 for (; a_itr != a_end; ++a_itr) {
                     size_t idx = 0;
-                    auto b_itr = std::ranges::begin(second);
+                    auto b_itr = std::begin(second);
                     bool found = false;
                     for (; b_itr != b_end; ++b_itr, ++idx) {
                         if (*b_itr == *a_itr) {
@@ -183,7 +183,7 @@ namespace internal {
                 //unnecessary, but will keep just in case I'm wrong
                 // for (size_t i = 0; i < used.size(); i++) {
                 //     if (!used[i]) {
-                //         return std::nullopt;
+                //         ;
                 //     }
                 // }
 
