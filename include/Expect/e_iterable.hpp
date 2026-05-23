@@ -13,6 +13,8 @@
 #define EXPECT_ORDERED_EQ(a, b) internal::Expect::expectOrderedRangeEq((a), (b), __FILE__, __LINE__)
 #define EXPECT_UNORDERED_EQ(a, b) internal::Expect::expectUnorderedRangeEq((a), (b), __FILE__, __LINE__)
 #define EXPECT_UNORDERED_NE(a, b) internal::Expect::expectUnorderedRangeNe((a), (b), __FILE__, __LINE__)
+#define EXPECT_EMPTY(a) internal::Expect::expectEmpty((a), __FILE__, __LINE__)
+#define EXPECT_EMPTY(a, size) internal::Expect::expectEmpty((a), (size), __FILE__, __LINE__)
 
 namespace internal {
     namespace Expect {
@@ -180,6 +182,30 @@ namespace internal {
 
                 Runner::CURRENT_TEST->failures.push_back({
                     "Collections are equivalent",
+                    file,
+                    line
+                });
+            }
+        }
+
+        template <typename T>
+        inline void expectEmpty(const T& container, const char* file, const int line) {
+            if (container.size() != 0) {
+                Runner::CURRENT_TEST->failures.push_back({
+                    std::string("Expected container size to be 0, but wasn't. \n" 
+                        "     size = " + Helpers::toString(container.size())),
+                    file,
+                    line
+                });
+            }
+        }
+
+        template <typename T>
+        inline void expectSize(const T& container, const size_t size, const char* file, const int line) {
+            if (container.size() != size) {
+                Runner::CURRENT_TEST->failures.push_back({
+                    std::string("Expected container size to be" + Helpers::toString(size) + ", but wasn't. \n" 
+                        "     size = " + Helpers::toString(container.size())),
                     file,
                     line
                 });
