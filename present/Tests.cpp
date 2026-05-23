@@ -317,17 +317,17 @@ TEST(ExpectIterable, ordered_eq_fails_size_mismatch) {
     EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
 }
 
-// TEST(ExpectIterable, ordered_eq_arrays) {
-//     int a[] = {1, 2, 3};
-//     int b[] = {1, 2, 3};
-//     ASSERT_ORDERED_EQ(a, b);
-// }
+TEST(ExpectIterable, ordered_eq_arrays) {
+    int a[] = {1, 2, 3};
+    int b[] = {1, 2, 3};
+    ASSERT_ORDERED_EQ(a, b);
+}
 
-// TEST(ExpectIterable, ordered_eq_arrays_fails) {
-//     int a[] = {1, 2, 3};
-//     int b[] = {1, 9, 3};
-//     EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
-// }
+TEST(ExpectIterable, ordered_eq_arrays_fails) {
+    int a[] = {1, 2, 3};
+    int b[] = {1, 9, 3};
+    EXPECT_FAILS(ASSERT_ORDERED_EQ(a, b));
+}
 
 
 // ============================================================

@@ -135,19 +135,19 @@ TEST(ExpectFloat_Fail, collects_all_float_failures) {
 TEST(AssertIterable_Fail, ordered_eq_value_mismatch) {
     std::vector<int> a = {1, 2, 3};
     std::vector<int> b = {1, 9, 3};    // index 1 differs
-    ASSERT_EQ_ORDERED(a, b);           // fails at index 1
+    ASSERT_ORDERED_EQ(a, b);           // fails at index 1
 }
  
 TEST(AssertIterable_Fail, ordered_eq_size_mismatch) {
     std::vector<int> a = {1, 2, 3};
     std::vector<int> b = {1, 2};
-    ASSERT_EQ_ORDERED(a, b);           // fails: different sizes
+    ASSERT_ORDERED_EQ(a, b);           // fails: different sizes
 }
  
 TEST(AssertIterable_Fail, ordered_eq_string_vectors) {
     std::vector<std::string> a = {"foo", "bar"};
     std::vector<std::string> b = {"foo", "baz"};
-    ASSERT_EQ_ORDERED(a, b);           // fails at index 1
+    ASSERT_ORDERED_EQ(a, b);           // fails at index 1
 }
  
  
@@ -158,13 +158,13 @@ TEST(AssertIterable_Fail, ordered_eq_string_vectors) {
 TEST(ExpectIterable_Fail, ordered_eq_reports_all_mismatches) {
     std::vector<int> a = {1, 2, 3, 4};
     std::vector<int> b = {1, 9, 3, 8}; // index 1 and 3 differ
-    EXPECT_EQ_ORDERED(a, b);           // both mismatches recorded
+    EXPECT_ORDERED_EQ(a, b);           // both mismatches recorded
 }
  
 TEST(ExpectIterable_Fail, ordered_eq_array_mismatch) {
     int a[] = {10, 20, 30};
     int b[] = {10, 99, 30};
-    EXPECT_EQ_ORDERED(a, b);           // fails at index 1
+    EXPECT_ORDERED_EQ(a, b);           // fails at index 1
 }
  
  
@@ -299,20 +299,20 @@ TEST(ExpectString_Fail, both_string_failures) {
 // ============================================================
  
 void noThrow()    { int x = 1 + 1; (void)x; }
-void throwsRuntime() { throw std::runtime_error("oops"); }
-void throwsLogic()   { throw std::logic_error("logic"); }
+void throwsRuntime2() { throw std::runtime_error("oops"); }
+void throwsLogic2()   { throw std::logic_error("logic"); }
  
 TEST(AssertThrows_Fail, throws_but_nothing_thrown) {
     ASSERT_THROWS(noThrow);            // fails: noThrow() doesn't throw
 }
  
 TEST(AssertThrows_Fail, does_not_throw_but_it_does) {
-    ASSERT_DOES_NOT_THROW(throwsRuntime); // fails: throwsRuntime() throws
+    ASSERT_DOES_NOT_THROW(throwsRuntime2); // fails: throwsRuntime() throws
 }
  
 TEST(AssertThrows_Fail, throws_wrong_exception_type) {
     // throwsLogic throws logic_error, not runtime_error
-    ASSERT_THROWS(throwsLogic, std::runtime_error); // fails: wrong type
+    ASSERT_THROWS(throwsLogic2, std::runtime_error); // fails: wrong type
 }
  
  
@@ -322,6 +322,6 @@ TEST(AssertThrows_Fail, throws_wrong_exception_type) {
  
 TEST(ExpectThrows_Fail, all_throw_failures) {
     EXPECT_THROWS(noThrow);               // fails — continues
-    EXPECT_DOES_NOT_THROW(throwsRuntime); // fails — continues
-    EXPECT_THROWS(throwsLogic, std::runtime_error); // fails — all three recorded
+    EXPECT_DOES_NOT_THROW(throwsRuntime2); // fails — continues
+    EXPECT_THROWS(throwsLogic2, std::runtime_error); // fails — all three recorded
 }

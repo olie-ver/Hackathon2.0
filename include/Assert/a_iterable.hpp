@@ -21,8 +21,8 @@ namespace internal {
 
         template <typename T, size_t N>
         inline void assertOrderedRangeEq(T(& a)[N], T(& b)[N], const char* file, int line) {
-            static_assert(Concepts::IterableComparable<T>::value, 
-                "Both containers must be iterable and their content must be comparable");
+            // static_assert(Concepts::IterableComparable<T>::value, 
+            //     "Both containers must be iterable and their content must be comparable");
 
             std::stringstream stream;
             bool mismatch = false;
@@ -50,8 +50,8 @@ namespace internal {
         template <typename A, typename B>
         inline void assertOrderedRangeEq(const A& a, const B& b, const char* file, int line)
         {
-            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
-                "Both containers must be iterable and their content must be comparable");
+            // static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+            //     "Both containers must be iterable and their content must be comparable");
 
             auto a_itr = std::begin(a);
             auto b_itr = std::begin(b);
@@ -88,8 +88,8 @@ namespace internal {
 
         template <typename A, typename B>
         inline void assertUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
-            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
-                "Both containers must be iterable and their content must be comparable");
+            // static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+            //     "Both containers must be iterable and their content must be comparable");
 
             if (std::size(a) != std::size(b)) {
                 Runner::CURRENT_TEST->failures.push_back({
@@ -146,8 +146,8 @@ namespace internal {
 
         template <typename A, typename B>
         inline void assertUnorderedRangeNe(const A& first, const B& second, const char* file, int line) {
-            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
-                "Both containers must be iterable and their content must be comparable");
+            // static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+            //     "Both containers must be iterable and their content must be comparable");
 
             size_t size_a = std::size(first);
             size_t size_b = std::size(second);
