@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Core.hpp"
 #include <string>
 #include <exception>
 
@@ -35,6 +36,8 @@ namespace internal {
                         file,
                         line
                     });
+
+                    throw Core::AssertionFailure();
                 }
                 catch (const std::exception& ex) {
 
@@ -51,6 +54,8 @@ namespace internal {
                         file,
                         line
                     });
+
+                    throw Core::AssertionFailure();
                 } catch (const Expected& ex) {
 
                 } catch (...) {
@@ -74,6 +79,8 @@ namespace internal {
                         file,
                         line
                     });
+
+                    throw Core::AssertionFailure();
                 }
             }
         }
@@ -90,6 +97,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             } catch (...) {
                 Runner::CURRENT_TEST->failures.push_back({
                     std::string("Expected function \"") + funcName 
@@ -98,6 +107,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
     }

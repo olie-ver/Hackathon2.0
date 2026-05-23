@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Core.hpp"
 #include <type_traits>
 #include <algorithm>
 #include <string>
@@ -65,6 +66,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -95,6 +98,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -125,6 +130,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -143,6 +150,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -161,6 +170,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
     }

@@ -4,6 +4,7 @@
 #define E_BOOL_H
 
 #include "../Runner.hpp"
+#include "../Core.hpp"
 
 #define EXPECT_TRUE(cond) internal::Expect::expectTrue((cond), #cond, __FILE__, __LINE__)
 #define EXPECT_FALSE(cond) internal::Expect::expectFalse((cond), #cond, __FILE__, __LINE__)
@@ -23,6 +24,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -39,6 +42,7 @@ namespace internal {
                     file,
                     line
                 });
+                throw Core::AssertionFailure();
             }
         }
     }

@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Core.hpp"
 #include <sstream>
 #include <type_traits>
 #include <iterator>
@@ -25,6 +26,8 @@ namespace internal {
                     stream << "\n     second[" << i << "]: " << Helpers::toString(second[i]);
                     mismatch = true;
                 }
+
+                throw Core::AssertionFailure();
             }
 
             if (mismatch) {
@@ -33,6 +36,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -55,7 +60,7 @@ namespace internal {
                     file,
                     line
                 });
-                return;
+                throw Core::AssertionFailure();
             }
             size_t index = 0;
             for (; a_itr != a_end; ++a_itr, ++b_itr, ++index)
@@ -72,6 +77,8 @@ namespace internal {
                         file,
                         line
                     });
+
+                    throw Core::AssertionFailure();
                 }
             }
         }

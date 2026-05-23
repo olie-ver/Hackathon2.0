@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Core.hpp"
 #include <type_traits>
 
 #define EXPECT_NULL(val) internal::Expect::isNull((val), __FILE__, __LINE__)
@@ -30,6 +31,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -51,6 +54,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
     }

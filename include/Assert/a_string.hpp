@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Core.hpp"
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -28,6 +29,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -53,7 +56,7 @@ namespace internal {
                     file,
                     line
                 });
-                return;
+                throw Core::AssertionFailure();
             }
 
             if (strcmp(first, second)) {
@@ -64,6 +67,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -84,7 +89,7 @@ namespace internal {
                     file,
                     line
                 });
-                return;
+                throw Core::AssertionFailure();
             }
 
             for (size_t i = 0; i < N; i++) {
@@ -96,7 +101,7 @@ namespace internal {
                         file,
                         line
                     });
-                    return;
+                    throw Core::AssertionFailure();
                 }
             }
         }
@@ -115,6 +120,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -140,7 +147,7 @@ namespace internal {
                     file,
                     line
                 });
-                return;
+               throw Core::AssertionFailure();
             }
 
             if (!strcmp(first, second)) {
@@ -151,6 +158,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
 
@@ -180,6 +189,8 @@ namespace internal {
                     file,
                     line
                 });
+
+                throw Core::AssertionFailure();
             }
         }
     }
