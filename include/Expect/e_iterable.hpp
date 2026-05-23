@@ -5,6 +5,7 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
+#include "../Concepts.hpp"
 #include <sstream>
 #include <type_traits>
 #include <iterator>
@@ -16,6 +17,9 @@ namespace internal {
 
         template <typename T, size_t N>
         inline void expectOrderedRangeEq(T(& first)[N], T(& second)[N], const char* file, int line) {
+            static_assert(Concepts::IterableComparable<A, B>::value, 
+                "Both containers must be iterable and their content must be comparable");
+
             std::stringstream stream;
             bool mismatch = false;
             for (size_t i = 0; i < N; i++) {
@@ -39,10 +43,8 @@ namespace internal {
         template <typename A, typename B>
         inline void expectOrderedRangeEq(const A& a, const B& b, const char* file, int line)
         {
-            static_assert(
-                Helpers::are_iterables_comparable<A, B>::value,
-                "EXPECT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
-            );
+            static_assert(Concepts::IterableComparable<A, B>::value, 
+                "Both containers must be iterable and their content must be comparable");
 
             auto a_itr = std::begin(a);
             auto b_itr = std::begin(b);
@@ -78,10 +80,8 @@ namespace internal {
 
         template <typename A, typename B>
         inline void expectUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
-            static_assert(
-                Helpers::are_iterables_comparable<A, B>::value,
-                "EXPECT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
-            );
+            static_assert(Concepts::IterableComparable<A, B>::value, 
+                "Both containers must be iterable and their content must be comparable");
         }
     }
 }

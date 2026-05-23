@@ -6,6 +6,7 @@
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
 #include "../Core.hpp"
+#include "../Concepts.hpp"
 #include <sstream>
 #include <type_traits>
 #include <iterator>

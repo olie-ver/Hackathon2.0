@@ -1,0 +1,21 @@
+#pragma once
+
+#include "include/Assert/a_bool.hpp"
+#include "include/Assert/a_cmp.hpp"
+#include "include/Assert/a_flt.hpp"
+#include "include/Assert/a_iterable.hpp"
+#include "include/Assert/a_meta.hpp"
+#include "include/Assert/a_null.hpp"
+#include "include/Assert/a_predicate.hpp"
+#include "include/Assert/a_string.hpp"
+#include "include/Assert/a_throws.hpp"
+
+#include "include/Expect/e_bool.hpp"
+#include "include/Expect/e_cmp.hpp"
+#include "include/Expect/e_flt.hpp"
+#include "include/Expect/e_iterable.hpp"
+#include "include/Expect/e_meta.hpp"
+#include "include/Expect/e_null.hpp"
+#include "include/Expect/e_predicate.hpp"
+#include "include/Expect/e_string.hpp"
+#include "include/Expect/e_throws.hpp"
