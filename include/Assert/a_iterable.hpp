@@ -5,29 +5,32 @@
 
 #include "../Runner.hpp"
 #include "../Helpers.hpp"
-#include "../Core.hpp"
 #include "../Concepts.hpp"
 #include <sstream>
 #include <type_traits>
 #include <iterator>
 
-#define ASSERT_EQ_ORDERED(first, second) internal::Assert::assertOrderedRangeEq((first), (second), __FILE__, __LINE__)
+#define ASSERT_ORDERED_EQ(a, b) internal::Assert::assertOrderedRangeEq((a), (b), __FILE__, __LINE__)
+#define ASSERT_UNORDERED_EQ(a, b) internal::Assert::assertUnorderedRangeEq((a), (b), __FILE__, __LINE__)
+#define ASSERT_UNORDERED_NE(a, b) internal::Assert::assertUnorderedRangeNe((a), (b), __FILE__, __LINE__)
 
 namespace internal {
     namespace Assert {
 
         template <typename T, size_t N>
-        inline void assertOrderedRangeEq(T(& first)[N], T(& second)[N], const char* file, int line) {
+        inline void assertOrderedRangeEq(T(& a)[N], T(& b)[N], const char* file, int line) {
+            static_assert(Concepts::IterableComparable<T>::value, 
+                "Both containers must be iterable and their content must be comparable");
+
             std::stringstream stream;
             bool mismatch = false;
             for (size_t i = 0; i < N; i++) {
-                if (!(first[i] == second[i])) {
+                if (!(a[i] == b[i])) {
                     stream << "     Mismatched element at index " << i;
-                    stream << "\n     first[" << i << "]: " << Helpers::toString(first[i]);
-                    stream << "\n     second[" << i << "]: " << Helpers::toString(second[i]);
+                    stream << "\n     a[" << i << "]: " << Helpers::toString(a[i]);
+                    stream << "\n     b[" << i << "]: " << Helpers::toString(b[i]);
                     mismatch = true;
                 }
-
                 throw Core::AssertionFailure();
             }
 
@@ -45,10 +48,8 @@ namespace internal {
         template <typename A, typename B>
         inline void assertOrderedRangeEq(const A& a, const B& b, const char* file, int line)
         {
-            // static_assert(
-            //     Concepts::IterableComparable<A, B>::value,
-            //     "ASSERT_EQ_ORDERED requires both arguments to be iterable and their elements comparable with =="
-            // );
+            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+                "Both containers must be iterable and their content must be comparable");
 
             auto a_itr = std::begin(a);
             auto b_itr = std::begin(b);
@@ -78,19 +79,120 @@ namespace internal {
                         file,
                         line
                     });
-
                     throw Core::AssertionFailure();
                 }
             }
         }
 
-        // template <typename A, typename B>
-        // inline void assertUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
-        //     // static_assert(
-        //     //     CConcepts::IterableComparable<A, B>::value,
-        //     //     "ASSERT_EQ_UNORDERED requires both arguments to be iterable and their elements comparable with =="
-        //     // );
-        // }
+        template <typename A, typename B>
+        inline void assertUnorderedRangeEq(const A& a, const B& b, const char* file, int line) {
+            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+                "Both containers must be iterable and their content must be comparable");
+
+            if (std::size(a) != std::size(b)) {
+                Runner::CURRENT_TEST->failures.push_back({
+                    "Collection sizes aren't equivalent",
+                    file,
+                    line
+                });
+                throw Core::AssertionFailure();
+            }
+
+            //since this function is being called, a and b have the same size
+            std::vector<bool> used(std::size(a));
+
+            auto a_itr = std::begin(a);
+
+            auto a_end = std::end(a);
+            auto b_end = std::end(b);
+
+            for (; a_itr != a_end; ++a_itr) {
+                size_t idx = 0;
+                auto b_itr = std::begin(b);
+                bool found = false;
+                for (; b_itr != b_end; ++b_itr, ++idx) {
+                    if (*b_itr == *a_itr) {
+                        if (!used[idx]) {
+                            used[idx] = true;
+                            found = true;
+                            break;
+                        }
+                    } 
+                }
+
+                if (!found) {
+                    Runner::CURRENT_TEST->failures.push_back({
+                        std::string("Missing element: ") + Helpers::toString(*a_itr),
+                        file,
+                        line
+                    });
+                    throw Core::AssertionFailure();
+                }
+            }
+
+            for (size_t i = 0; i < used.size(); i++) {
+                if (!used[i]) {
+                    Runner::CURRENT_TEST->failures.push_back({
+                        "Collections not equivalent",
+                        file,
+                        line
+                    });
+                    throw Core::AssertionFailure();
+                }
+            }
+        }
+
+        template <typename A, typename B>
+        inline void assertUnorderedRangeNe(const A& first, const B& second, const char* file, int line) {
+            static_assert(Concepts::IterableComparable<A>::value && Concepts::IterableComparable<B>::value,
+                "Both containers must be iterable and their content must be comparable");
+
+            size_t size_a = std::ranges::size(first);
+            size_t size_b = std::ranges::size(second);
+
+            if (size_a == size_b) {
+                std::vector<bool> used(size_a);
+
+                auto a_itr = std::ranges::begin(first);
+
+                auto a_end = std::ranges::end(first);
+                auto b_end = std::ranges::end(second);
+
+                for (; a_itr != a_end; ++a_itr) {
+                    size_t idx = 0;
+                    auto b_itr = std::ranges::begin(second);
+                    bool found = false;
+                    for (; b_itr != b_end; ++b_itr, ++idx) {
+                        if (*b_itr == *a_itr) {
+                            if (!used[idx]) {
+                                used[idx] = true;
+                                found = true;
+                                break;
+                            }
+                        } 
+                    }
+
+                    //if there's an element in a that's not in b, then they aren't equal => return
+                    if (!found) {
+                        return;
+                    }
+                }
+
+                //unnecessary, but will keep just in case I'm wrong
+                // for (size_t i = 0; i < used.size(); i++) {
+                //     if (!used[i]) {
+                //         return std::nullopt;
+                //     }
+                // }
+
+                Runner::CURRENT_TEST->failures.push_back({
+                    "Collections are equivalent",
+                    file,
+                    line
+                });
+                throw Core::AssertionFailure();
+            }
+        }
     }
 }
 
