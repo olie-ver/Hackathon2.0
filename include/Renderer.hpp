@@ -4,6 +4,7 @@
 
 namespace internal::Renderer {
     class Renderer {
-        void render(Core::TestRun& run);
+        public:
+            void render(Core::TestRun& run);
     };
 }
